@@ -32,15 +32,15 @@ class Command(BaseCommand):
         return self.execute(*args, **options)
 
     def execute(self, *args, **options):
-        blkid_output = subprocess.check_output('/Users/kylederkacz/blkid')
+        blkid_output = subprocess.check_output('/sbin/blkid')
         partitions = self._parse_blkid_output(blkid_output)
-        df_output = subprocess.check_output(['/Users/kylederkacz/df', '-k'])
+        df_output = subprocess.check_output(['/bin/df', '-k'])
         partitions = self._parse_df_output(df_output, partitions)
 
         fdisk = re.compile(self.fdisk_regex, flags=re.MULTILINE | re.VERBOSE)
         partition = re.compile(self.partition_regex, flags=re.MULTILINE | re.VERBOSE)
         drives = {}
-        for match in fdisk.finditer(subprocess.check_output(['/Users/kylederkacz/fdisk', '-l'])):
+        for match in fdisk.finditer(subprocess.check_output(['/usr/bin/sudo', '/sbin/fdisk', '-l'])):
             data = match.groupdict()
             parts = []
             if 'partitions' in data.keys() and data['partitions']:
@@ -51,9 +51,6 @@ class Command(BaseCommand):
                     parts.append(p_data)
             data['partitions'] = parts
             drives[data['disk']] = data
-
-        import pprint
-        pprint.pprint(drives)
 
         return drives
 

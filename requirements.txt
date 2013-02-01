@@ -2,3 +2,4 @@ Django
 south
 django-tastypie
 pexpect
+-e git://github.com/derks/python-ifcfg.git#egg=ifcfg
