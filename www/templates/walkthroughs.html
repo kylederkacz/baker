@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="span3 docs-sidebar">
+            <div class="well nav-well">
+                <ul class="nav nav-list">
+                    <li class="nav-header">System Management</li>
+                    <li><a href="#system-user">User Administration</a></li>
+                    <li><a href="#system-drives">External Harddrives</a></li>
+                    <li class="nav-header">MiniDLNA</li>
+                    <li><a href="#minidlna">MiniDlna</a></li>
+                    <li class="nav-header">File Server</li>
+                    <li><a href="#file-samba">Samba</a></li>
+                    <li><a href="#file-afp">Apple File Sharing</a></li>
+                    <li class="nav-header">XBMC</li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+
+            <div class="page-header">
+                <h1>Walk-throughs</h1>
+            </div>
+
+            <h2>System Management</h2>
+            <section id="system-user">
+
+                <h3>User Administration</h3>
+
+                <h4>Adding a user</h4>
+                <pre>sudo useradd</pre>
+            </section>
+
+            <section id="system-drives">
+                <h3>External Harddrives</h3>
+                
+                <h4>Mounting an External Drive</h4>
+                <p>
+                    Before plugging the drive into the Pi run the following command so that the <code>/dev</code> location of the new drive can be identified:
+
+                    <pre>
+pi@raspberrypi ~ $ sudo fdisk -l
+
+Disk /dev/mmcblk0: 7822 MB, 7822376960 bytes
+4 heads, 16 sectors/track, 238720 cylinders, total 15278080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00017b69
+
+        Device Boot      Start         End      Blocks   Id  System
+/dev/mmcblk0p1            8192      122879       57344    c  W95 FAT32 (LBA)
+/dev/mmcblk0p2          122880    15278079     7577600   83  Linux
+                    </pre>
+                    <em>If no other drives are connected to the Pi then your output should roughly match the output above.</em>
+
+
+                </p>
+            </section>
+
+            <section id="minidlna">
+            </section>
+
+            <h2>File Server Management</h2>
+            <section id="file">
+                <h3>Setting up Samba</h3>
+                <h3>Setting up AFP</h3>
+                
+                <h3>Adding AFP Folders to Share</h3>
+                <p>
+                    Adding shared folders is just a matter of pointing the netatalk client at them in <code>/etc/netatalk/AppleVolumes.default</code>. If you're sharing a folder that is on an external drive then is must be properly mounted and formatted with a filesystem that can be read by the RaspberryPi.
+                </p>
+                <p>
+                    <em>To be able to write to the share you must chmod/chown the drive in such a way that the user that you're using to connect to the share has write privileges.</em>
+                </p>
+                <p>
+                    <pre>pi@raspberrypi ~ $ sudo vim /etc/netatalk/AppleVolumes.default</pre>
+                </p>
+                <p>
+                   Add each shared folder at the bottom of the file in the following format:
+                   <pre>
+# By default all users have access to their home directories.
+/media/Media/Movies                     "Movies"
+/media/Media/TV                         "TV Shows"
+...
+                    </pre>
+                </p>
+                <p>
+                    Restart the Netatalk file sharing service:
+                    <pre>pi@raspberrypi ~ $ sudo /etc/init.d/netatalk restart</pre>
+                </p>
+
+
+            </section>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

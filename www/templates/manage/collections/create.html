@@ -1,0 +1,47 @@
+<div class="page-header">
+    <h1>Create a New Collection</h1>
+</div>
+
+<form class="form-horizontal" method="post" action="{% url minidlna_settings %}">
+    {% with collection_form.type as field %}
+    <div class="control-group">
+        <label class="control-label" for="id_{{ field.html_name }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+            <span class="help-block">{{ field.help_text|safe }}</span>
+        </div>
+    </div>
+    {% endwith %}
+    {% with collection_form.label as field %}
+    <div class="control-group">
+        <label class="control-label" for="id_{{ field.html_name }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+            <span class="help-block">{{ field.help_text|safe }}</span>
+        </div>
+    </div>
+    {% endwith %}
+    {% with collection_form.location as field %}
+    <div class="control-group">
+        <label class="control-label" for="id_{{ field.html_name }}">{{ field.label }}</label>
+        <div class="controls">
+            <div class="well file-browser-well">
+                <div file-browser-input id="id_{{ field.html_name }}"
+                     class="file-browser"
+                     data-root="{{ field.value|default_if_none:'' }}"
+                     data-script="{% url file_tree %}"
+                     data-hide-dot-files="true"
+                     data-show-files="false">
+                </div>
+            </div>
+            <span class="help-block">{{ field.help_text|safe }}</span>
+        </div>
+    </div>
+    {% endwith %}
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary" data-saving-text="Saving...">Save Collection</button>
+            <a class="btn" href="#/collections">Cancel</a>
+        </div>
+    </div>
+</form>

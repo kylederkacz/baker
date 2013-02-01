@@ -1,0 +1,24 @@
+<div class="page-header">
+    <h1>Mini<abbr title="Digital Living Network Alliance®">DLNA</abbr> Settings</h1>
+</div>
+
+<p>
+    <small>The settings for MiniDLNA are stored under <code>/etc/minidlna.conf</code> and will be written out to that location when saved. Historical version are also maintained.</small>
+</p>
+<br/>
+<form class="form-horizontal" method="post" action="{% url minidlna_settings %}">
+    {% for field in form %}
+    <div class="control-group">
+        <label class="control-label" for="{{ field.id }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+            <span class="help-block">{{ field.help_text|safe }}</span>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary" data-saving-text="Saving...">Save Settings</button>
+        </div>
+    </div>
+</form>

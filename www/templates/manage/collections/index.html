@@ -1,0 +1,34 @@
+<div class="page-header">
+    <h1>Collections</h1>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <a href="#/collections/create" class="btn btn-primary"><i class="icon-plus icon-white"></i> Add New Collection</a>
+    </div>
+</div>
+
+<div class="collections">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Label</th>
+                <th>Location</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="collection in collections">
+                <td align="center"><i class="icon-[{collectionTypes[collection.type]}]"></i></td>
+                <td>[{collection.label}]</td>
+                <td>[{collection.location}]</td>
+                <td>
+                    <a class="btn btn-mini" href="#/collections/edit/[{collection.id}]">Edit</a>
+                    <button class="btn btn-mini">Tools</button>
+                    <button class="btn btn-mini">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

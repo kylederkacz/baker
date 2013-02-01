@@ -1,0 +1,44 @@
+<div class="page-header">
+    <h1><i class="icon-hdd"></i> Drives</h1>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Size</th>
+            <th>Usage</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="drives">
+        <tr ng-repeat="(fs, drive) in drives">
+            <td>[{ fs }]</td>
+            <td>[{ drive.size }]</td>
+            <td>
+                <div class="progress progress-[{ drive.usage_state }] drive-usage">
+                    <div class="bar" style="width: [{ drive.usage }]"></div>
+                </div>
+            </td>
+            <td>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+                        Manage
+                        <i class="icon-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#">Browse</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Unmount</a></li>
+                        <li><a href="#">Format</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="!drives">
+        <tr>
+            <td colspan=5><i class="icon-spinner icon-spin"></i> Loading drive information...</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+<div class="page-header">
+    <h1><i class="icon-globe"></i> Network</h1>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Netmask</th>
+            <th>Router</th>
+            <th>MAC Address</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="network">
+        <tr ng-repeat="(interface, info) in network">
+            <td>[{ interface }]</td>
+            <td>[{ info.inet }]</td>
+            <td>[{ info.netmask }]</td>
+            <td>[{ info.broadcast }]</td>
+            <td>[{ info.ether }]</td>
+            <td>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+                        Manage
+                        <i class="icon-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#">Browse</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Unmount</a></li>
+                        <li><a href="#">Format</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="!drives">
+        <tr>
+            <td colspan=5><i class="icon-spinner icon-spin"></i> Loading drive information...</td>
+        </tr>
+    </tbody>
+</table>
